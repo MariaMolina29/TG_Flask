@@ -44,34 +44,34 @@ function main() {
             // let audio_player = document.getElementById('audio_player');
             // let download_txt = document.getElementById('download_txt');
             // let download_wav = document.getElementById('download_wav');
-            fetch('../data.json')
-            .then(response => response.json())
-            .then(data => {
-                // Aquí es donde asignas los datos a variables
-                const trace_oscilogram = data.trace_oscilogram;
-                const layout_oscilogram = data.layout_oscilogram;
-                const trace_spectrogram = data.trace_spectrogram;
-                const layout_spectrogram = data.layout_spectrogram;
-                const trace_intensity = data.trace_intensity;
-                const layout_intensity = data.layout_intensity;
-                const trace_spectrogram_3d = data.trace_spectrogram_3d;
-                const layout_spectrogram_3d = data.layout_spectrogram_3d;
-                const trace_spectrum = data.trace_spectrum;
-                const layout_spectrum = data.layout_spectrum;
-    
-                Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, {responsive: true})
-                Plotly.newPlot('spectrogram',trace_spectrogram, layout_spectrogram, {responsive: true});  
-                Plotly.newPlot('intensity', trace_intensity, layout_intensity, {responsive: true});  
-                Plotly.newPlot('spectrogram_3d', trace_spectrogram_3d, layout_spectrogram_3d, { responsive: true });  
-                Plotly.newPlot('spectrum',trace_spectrum, layout_spectrum, { responsive: true });
-            })
-            .catch(error => console.error('Error al cargar el archivo JSON:', error));
+            fetch('static/data.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Aquí es donde asignas los datos a variables
+                    const trace_oscilogram = data.trace_oscilogram;
+                    const layout_oscilogram = data.layout_oscilogram;
+                    const trace_spectrogram = data.trace_spectrogram;
+                    const layout_spectrogram = data.layout_spectrogram;
+                    const trace_intensity = data.trace_intensity;
+                    const layout_intensity = data.layout_intensity;
+                    const trace_spectrogram_3d = data.trace_spectrogram_3d;
+                    const layout_spectrogram_3d = data.layout_spectrogram_3d;
+                    const trace_spectrum = data.trace_spectrum;
+                    const layout_spectrum = data.layout_spectrum;
 
-            Plotly.newPlot('spectrogram', [], { title: "Esperando Datos..." }, { responsive: true })
-            Plotly.newPlot('spectrum', [], { title: "Esperando Datos..." }, { responsive: true });
-            Plotly.newPlot('spectrogram_3d', [], { title: "Esperando Datos..." }, { responsive: true });
-            Plotly.newPlot('oscilogram', [], { title: "Esperando Datos..." }, { responsive: true });
-            Plotly.newPlot('intensity', [], { title: "Esperando Datos..." }, { responsive: true });
+                    Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, { responsive: true })
+                    Plotly.newPlot('spectrogram', trace_spectrogram, layout_spectrogram, { responsive: true });
+                    Plotly.newPlot('intensity', trace_intensity, layout_intensity, { responsive: true });
+                    Plotly.newPlot('spectrogram_3d', trace_spectrogram_3d, layout_spectrogram_3d, { responsive: true });
+                    Plotly.newPlot('spectrum', trace_spectrum, layout_spectrum, { responsive: true });
+                })
+                .catch(error => console.error('Error al cargar el archivo JSON:', error));
+
+            // Plotly.newPlot('spectrogram', [], { title: "Esperando Datos..." }, { responsive: true })
+            // Plotly.newPlot('spectrum', [], { title: "Esperando Datos..." }, { responsive: true });
+            // Plotly.newPlot('spectrogram_3d', [], { title: "Esperando Datos..." }, { responsive: true });
+            // Plotly.newPlot('oscilogram', [], { title: "Esperando Datos..." }, { responsive: true });
+            // Plotly.newPlot('intensity', [], { title: "Esperando Datos..." }, { responsive: true });
 
             // load_wav_button.addEventListener('click', () => load_wav(upload_wav))
             // upload_wav.addEventListener('change', () => change_upload(upload_wav))
@@ -154,30 +154,30 @@ function update_graphs(parsed_data, formats_checkbox) {
     Plotly.react('spectrogram', parsed_data.trace_spectrogram, parsed_data.layout_spectrogram)
 }
 function update_elements(parsed_data, upload_wav, audio_player, download_wav, download_txt, audio) {
-    document.getElementById('download_pdf').addEventListener('click', function() {
+    document.getElementById('download_pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         let doc = new jsPDF('landscape');
-        
+
         let plots = document.querySelectorAll('.js-plotly-plot');  // Todas las gráficas de Plotly en la página
         let promises = [];
-    
+
         // Capturamos cada gráfica como una imagen en base64
         plots.forEach((plot, index) => {
             promises.push(Plotly.toImage(plot, { format: 'png', height: 400, width: 600 })
-                .then(function(dataUrl) {
+                .then(function (dataUrl) {
                     if (index > 0) {
                         doc.addPage();  // Agregar una nueva página para cada gráfica, excepto la primera
                     }
                     doc.addImage(dataUrl, 'PNG', 10, 10, 270, 150);  // Insertar la imagen en el PDF (ajustar dimensiones según sea necesario)
                 }));
         });
-    
+
         // Cuando todas las imágenes están listas, generamos el PDF
         Promise.all(promises).then(() => {
             doc.save('figures.pdf');
         });
     });
-    
+
     let file = upload_wav.files[0];
     if (file) {
         // Crear un URL del archivo seleccionado
@@ -205,7 +205,7 @@ function update_elements(parsed_data, upload_wav, audio_player, download_wav, do
     // Actualizar el href del enlace de descarga
     download_txt.href = text_url;
 }
-function in_out_formants(){
+function in_out_formants() {
     let spectrogram = document.getElementById('spectrogram');
     formats_checkbox.addEventListener('change', function (event) {
         show_spinner()
@@ -273,7 +273,7 @@ function syncLineOnClick(spectrogram_data) {
                 addZoomWindow(oscilogramFigure, clicked_time, parseFloat(zoom_value), false);
             }
             hide_spinner()
-        },100)
+        }, 100)
 
     });
 
