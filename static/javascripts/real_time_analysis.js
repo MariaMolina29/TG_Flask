@@ -29,12 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const layout_spectrogram_3d = data.layout_spectrogram_3d;
         const trace_spectrum = data.trace_spectrum;
         const layout_spectrum = data.layout_spectrum;
-        const text_content = data.text_content;
-        const spectrogram_data = data.spectrogram_data;
 
         Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, {responsive: true})
         Plotly.newPlot('spectrogram',trace_spectrogram, layout_spectrogram, {responsive: true});  
-        Plotly.newPlot('intensity', trace_intensity, layout_intensity, {responsive: true});    })
+        Plotly.newPlot('intensity', trace_intensity, layout_intensity, {responsive: true});    
+    })
     .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
     // Plotly.newPlot('oscilogram', [], {title: "Esperando Datos..."}, {responsive: true})
@@ -155,7 +154,7 @@ function update_graphs(plot_data, formats_checkbox) {
 async function save_and_load() {
     sweet_alert("Guardando...", `Los datos se estan guardando por favor espere.`, "warning", "", undefined, false, true);
     try {
-        let response = await emit_message("save_data");
+        // let response = await emit_message("save_data");
         await esperar(3000);
         Swal.close();
         window.location.href = 'wav_analysis.html';

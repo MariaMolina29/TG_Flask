@@ -1,6 +1,6 @@
 let socket
 document.addEventListener('DOMContentLoaded', () => {
-    socket = io();
+    // socket = io();
     main()
 });
 
@@ -26,24 +26,46 @@ function main() {
             </div>
         `,
         showConfirmButton: false,  // Puedes ocultar el botón de confirmación para manejarlo manualmente
-        allowOutsideClick: false,
+        // allowOutsideClick: false,
+        allowOutsideClick: true,
         iconHtml: '<i class="fa-solid fa-upload fa-beat"></i>',  // Ícono de subida de archivo con rebote
         customClass: {
             popup: '.custom_swal_popup',
         },
         didOpen: () => {
-            socket.emit('get_processed_audio');
-            socket.on('loading', () => {
-                sweet_alert("Datos guardados correctamente", `los datos se han  subido correctamente espere para el procesamiento.`, "success", "", undefined, false, true, null);
-            });
+            // socket.emit('get_processed_audio');
+            // socket.on('loading', () => {
+            //     sweet_alert("Datos guardados correctamente", `los datos se han  subido correctamente espere para el procesamiento.`, "success", "", undefined, false, true, null);
+            // });
 
-            let upload_wav = document.getElementById('upload_wav');
-            let load_wav_button = document.getElementById('load_wav');
-            let formats_checkbox = document.getElementById('formats_checkbox');
-            let audio_player = document.getElementById('audio_player');
-            let download_txt = document.getElementById('download_txt');
-            let download_wav = document.getElementById('download_wav');
-
+            // let upload_wav = document.getElementById('upload_wav');
+            // let load_wav_button = document.getElementById('load_wav');
+            // let formats_checkbox = document.getElementById('formats_checkbox');
+            // let audio_player = document.getElementById('audio_player');
+            // let download_txt = document.getElementById('download_txt');
+            // let download_wav = document.getElementById('download_wav');
+            fetch('../data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Aquí es donde asignas los datos a variables
+                const trace_oscilogram = data.trace_oscilogram;
+                const layout_oscilogram = data.layout_oscilogram;
+                const trace_spectrogram = data.trace_spectrogram;
+                const layout_spectrogram = data.layout_spectrogram;
+                const trace_intensity = data.trace_intensity;
+                const layout_intensity = data.layout_intensity;
+                const trace_spectrogram_3d = data.trace_spectrogram_3d;
+                const layout_spectrogram_3d = data.layout_spectrogram_3d;
+                const trace_spectrum = data.trace_spectrum;
+                const layout_spectrum = data.layout_spectrum;
+    
+                Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, {responsive: true})
+                Plotly.newPlot('spectrogram',trace_spectrogram, layout_spectrogram, {responsive: true});  
+                Plotly.newPlot('intensity', trace_intensity, layout_intensity, {responsive: true});  
+                Plotly.newPlot('spectrogram_3d', trace_spectrogram_3d, layout_spectrogram_3d, { responsive: true });  
+                Plotly.newPlot('spectrum',trace_spectrum, layout_spectrum, { responsive: true });
+            })
+            .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
             Plotly.newPlot('spectrogram', [], { title: "Esperando Datos..." }, { responsive: true })
             Plotly.newPlot('spectrum', [], { title: "Esperando Datos..." }, { responsive: true });
@@ -51,27 +73,27 @@ function main() {
             Plotly.newPlot('oscilogram', [], { title: "Esperando Datos..." }, { responsive: true });
             Plotly.newPlot('intensity', [], { title: "Esperando Datos..." }, { responsive: true });
 
-            load_wav_button.addEventListener('click', () => load_wav(upload_wav))
-            upload_wav.addEventListener('change', () => change_upload(upload_wav))
+            // load_wav_button.addEventListener('click', () => load_wav(upload_wav))
+            // upload_wav.addEventListener('change', () => change_upload(upload_wav))
 
-            socket.on("plot_data_wav", (plot_data) => {
-                let parsed_data = JSON.parse(plot_data);
-                update_graphs(parsed_data, formats_checkbox)
-                update_elements(parsed_data, upload_wav, audio_player, download_wav, download_txt, NaN)
-                Swal.close();
-                cursor(audio_player)
-                syncLineOnClick(parsed_data.spectrogram_data)
-                in_out_formants()
-            });
-            socket.on('plot_save_audio', (data) => {
-                let parsed_data = JSON.parse(data.plot_data);
-                update_graphs(parsed_data, formats_checkbox);
-                update_elements(parsed_data, upload_wav, audio_player, download_wav, download_txt, data.audio)
-                Swal.close();
-                cursor(audio_player)
-                syncLineOnClick(parsed_data.spectrogram_data)
-                in_out_formants()
-            });
+            // socket.on("plot_data_wav", (plot_data) => {
+            //     let parsed_data = JSON.parse(plot_data);
+            //     update_graphs(parsed_data, formats_checkbox)
+            //     update_elements(parsed_data, upload_wav, audio_player, download_wav, download_txt, NaN)
+            //     Swal.close();
+            //     cursor(audio_player)
+            //     syncLineOnClick(parsed_data.spectrogram_data)
+            //     in_out_formants()
+            // });
+            // socket.on('plot_save_audio', (data) => {
+            //     let parsed_data = JSON.parse(data.plot_data);
+            //     update_graphs(parsed_data, formats_checkbox);
+            //     update_elements(parsed_data, upload_wav, audio_player, download_wav, download_txt, data.audio)
+            //     Swal.close();
+            //     cursor(audio_player)
+            //     syncLineOnClick(parsed_data.spectrogram_data)
+            //     in_out_formants()
+            // });
         }
     });
 
