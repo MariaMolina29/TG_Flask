@@ -4,26 +4,47 @@ let stream
 let socket 
 
 document.addEventListener('DOMContentLoaded', () => {
-    socket = io();
-    socket.on('connect', () => {
-        console.log("Conectado al servidor Flask-SocketIO");
-    });
-    socket.on("disconnect", function () {
-        console.log("Desconectado del servidor Flask-SocketIO");
-    });
+    // socket = io();
+    // socket.on('connect', () => {
+    //     console.log("Conectado al servidor Flask-SocketIO");
+    // });
+    // socket.on("disconnect", function () {
+    //     console.log("Desconectado del servidor Flask-SocketIO");
+    // });
     let start_recording_button = document.getElementById('start_recording');
     let stop_recording_button = document.getElementById('stop_recording');
     let save_and_load_button = document.getElementById('save_and_load_button');
     let formats_checkbox = document.getElementById('formats_checkbox');
+    fetch('ruta/a/data.json')
+    .then(response => response.json())
+    .then(data => {
+        // Aquí es donde asignas los datos a variables
+        const trace_oscilogram = data.trace_oscilogram;
+        const layout_oscilogram = data.layout_oscilogram;
+        const trace_spectrogram = data.trace_spectrogram;
+        const layout_spectrogram = data.layout_spectrogram;
+        const trace_intensity = data.trace_intensity;
+        const layout_intensity = data.layout_intensity;
+        const trace_spectrogram_3d = data.trace_spectrogram_3d;
+        const layout_spectrogram_3d = data.layout_spectrogram_3d;
+        const trace_spectrum = data.trace_spectrum;
+        const layout_spectrum = data.layout_spectrum;
+        const text_content = data.text_content;
+        const spectrogram_data = data.spectrogram_data;
 
-    Plotly.newPlot('oscilogram', [], {title: "Esperando Datos..."}, {responsive: true})
-    Plotly.newPlot('spectrogram', [], {title: "Esperando Datos..."}, {responsive: true});  
-    Plotly.newPlot('intensity', [], {title: "Esperando Datos..."}, {responsive: true});  
+        Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, {responsive: true})
+        Plotly.newPlot('spectrogram',trace_spectrogram, layout_spectrogram, {responsive: true});  
+        Plotly.newPlot('intensity', trace_intensity, layout_intensity, {responsive: true});    })
+    .catch(error => console.error('Error al cargar el archivo JSON:', error));
+
+    // Plotly.newPlot('oscilogram', [], {title: "Esperando Datos..."}, {responsive: true})
+    // Plotly.newPlot('spectrogram', [], {title: "Esperando Datos..."}, {responsive: true});  
+    // Plotly.newPlot('intensity', [], {title: "Esperando Datos..."}, {responsive: true});  
 
   
-    start_recording_button.addEventListener('click', () => start_recording(start_recording_button, stop_recording_button, save_and_load_button))
-    stop_recording_button.addEventListener('click', () => stop_recording(start_recording_button, stop_recording_button, save_and_load_button, formats_checkbox))
-    save_and_load_button.addEventListener('click', () => save_and_load())
+    // start_recording_button.addEventListener('click', () => start_recording(start_recording_button, stop_recording_button, save_and_load_button))
+    // stop_recording_button.addEventListener('click', () => stop_recording(start_recording_button, stop_recording_button, save_and_load_button, formats_checkbox))
+    // save_and_load_button.addEventListener('click', () => save_and_load())
 
     socket.on("plot_data_real_time", (plot_data) =>{update_graphs(plot_data, formats_checkbox)});
 
