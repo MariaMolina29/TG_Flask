@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // socket.on("disconnect", function () {
     //     console.log("Desconectado del servidor Flask-SocketIO");
     // });
-    let start_recording_button = document.getElementById('start_recording');
-    let stop_recording_button = document.getElementById('stop_recording');
-    let save_and_load_button = document.getElementById('save_and_load_button');
-    let formats_checkbox = document.getElementById('formats_checkbox');
-    fetch('ruta/a/data.json')
+    // let start_recording_button = document.getElementById('start_recording');
+    // let stop_recording_button = document.getElementById('stop_recording');
+    // let save_and_load_button = document.getElementById('save_and_load_button');
+    // let formats_checkbox = document.getElementById('formats_checkbox');
+    fetch('../data.json')
     .then(response => response.json())
     .then(data => {
         // Aquí es donde asignas los datos a variables
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // stop_recording_button.addEventListener('click', () => stop_recording(start_recording_button, stop_recording_button, save_and_load_button, formats_checkbox))
     // save_and_load_button.addEventListener('click', () => save_and_load())
 
-    socket.on("plot_data_real_time", (plot_data) =>{update_graphs(plot_data, formats_checkbox)});
+    // socket.on("plot_data_real_time", (plot_data) =>{update_graphs(plot_data, formats_checkbox)});
 
 });
 
