@@ -44,7 +44,7 @@ function main() {
             // let audio_player = document.getElementById('audio_player');
             // let download_txt = document.getElementById('download_txt');
             // let download_wav = document.getElementById('download_wav');
-            fetch('../static/data.json')
+            fetch('static/javascripts/data.json')
             
                 .then(response => response.json())
                 .then(data => {

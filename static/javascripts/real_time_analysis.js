@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // let stop_recording_button = document.getElementById('stop_recording');
     // let save_and_load_button = document.getElementById('save_and_load_button');
     // let formats_checkbox = document.getElementById('formats_checkbox');
-    fetch('../static/data.json')
+    fetch('static/javascripts/data.json')
         .then(response => response.json())
         .then(data => {
             // Aquí es donde asignas los datos a variables
