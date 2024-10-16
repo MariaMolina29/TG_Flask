@@ -44,7 +44,8 @@ function main() {
             // let audio_player = document.getElementById('audio_player');
             // let download_txt = document.getElementById('download_txt');
             // let download_wav = document.getElementById('download_wav');
-            fetch('static/data.json')
+            fetch('../static/data.json')
+            
                 .then(response => response.json())
                 .then(data => {
                     // Aquí es donde asignas los datos a variables
