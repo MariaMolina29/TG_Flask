@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AudioLab</title>
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/style.css">
+
+
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <div class="navbar">
+        <div class="container navbar-container">
+            <h1 class="brand-title">AudioLab</h1>
+            <nav class="navigation-menu">
+                <a href="#info" class="nav-link">About</a>
+            </nav>
+        </div>
+    </div>
+
+   <!-- Sección Hero (Encabezado Principal) -->
+    <div class="hero-section" data-aos="zoom-in-up">
+        <div class="container" >
+            <h1 class="hero-title" >¡Bienvenido!</h1>
+            <div class="hero-subtitle">Descubre nuestra herramienta para análisis de audio.</div>
+        </div>
+    </div>
+
+
+    <!-- Sección de información (antes 'Interfaz', ahora 'info') -->
+    <div id="info" class="info-section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">¿Qué es AudioLab?</h2>
+            <p  class="section-description" data-aos="fade-up">
+                AudioLab es una herramienta online que te permite analizar audio en tiempo real o archivos de audio de una manera rápida y sencilla. 
+            </p>
+        </div>
+    </div>
+
+    <!-- Sección de Opciones de análisis de audio -->
+    <div class="audio-section">
+        <h1 data-aos="fade-up">Opciones de análisis de audio</h1>
+        <div class="buttons" data-aos="fade-up">
+            <a href="real_time_analysis.html" class="button"><i class="fa-solid fa-microphone"></i>Analizar audio en tiempo real</a>
+            <a href="wav_analysis.html" class="button"><i class="fa-duotone fa-solid fa-file-audio fa-xl"></i>Analizar un archivo .wav</a>
+        </div>
+    </div>
+
+    <!-- Sección de enlaces útiles -->
+    <div class="useful-links">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Enlaces útiles </h2>
+            <p class="manual-description" data-aos="fade-up">Aquí puedes encontrar el manual de uso y acceder al código fuente en GitHub.</p>
+            <div class="link-buttons" data-aos="fade-up">
+                <a href="manual.html" class="button"><i class="fa-solid fa-book-open"></i>Ver Manual de Uso</a>
+                <a href="https://github.com/usuario/repositorio" class="button github-button" target="_blank"><i class="fa-brands fa-github"></i>Ver Código en GitHub</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-contact">
+                <h2>AudioLab</h2>
+                <p>Trabajo de Grado  2024-03</p>
+                <p>Andres Felipe Oñate y María Alejandra Molina</p>
+                <p>Bioingeniería</p>
+                <p>Pontificia Universidad Javeriana</p>
+                <p>Bogotá D.C., Colombia</p>
+
+            </div>
+        </div>
+    </div>
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init();</script>
+</body>
+</html>

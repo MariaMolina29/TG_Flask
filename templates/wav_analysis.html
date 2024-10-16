@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analizar Archivo de Audio</title>
+    <!-- Web Socket JavaScript -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <!-- Plotly JavaScript -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Sweet Alert JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jspdf JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- JavaScript -->
+    <script src="../static/javascripts/wav_analysis.js"></script>
+
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+<body>
+    <div id="spinner_container" class="spinner_overlay">
+        <div id="spinner"></div>
+        <p>Cargando, por favor espera...</p>
+    </div>
+    <div id="main_content">
+        <div class="title-sections">
+            <h1 class="title" data-aos="zoom-in">Analizar Archivo de Audio</h1>
+        </div>
+        <div class="back-section">
+            <a href="index.html">
+                <i class="fa-solid fa-arrow-left"></i> Regresar
+            </a>
+        </div>
+
+        <audio id="audio_player" controls></audio>
+        <div class="download-section">
+            <a id="download_txt" href="" download="data.txt"><i class="fa-duotone fa-solid fa-file-arrow-down"></i> Descargar Datos en .txt </a>
+            <a id="download_wav" href="" download="audio.wav"><i class="fa-sharp fa-solid fa-file-waveform"></i> Descargar .wav </a>
+            <a id="download_pdf" href="" ><i class="fa-solid fa-file-pdf"></i>Descargar Gráficas en pdf </a>
+        </div>
+    
+    
+        <div id="graphics_container">
+            <div id="first_column">
+                <label for="formats_checkbox">Formantes</label>
+                <input type="checkbox" id="formats_checkbox" checked>
+                <div id="spectrogram" class="cursor2d"></div>
+                <div id="spectrum" class="cursorEspectro"></div>
+                <div id="spectrogram_3d" class="cursor3d"></div>
+            </div>
+    
+            <div id="second_column">
+                <div class="slider-container">
+                    <div class="title_value"><label for="zoom_slider" >Duración de la ventana de zoom (ms)</label></div>
+                    <div class="range-marks">
+                        <span>1 </span>
+                        <span>50 </span>
+                        <span>100 </span>
+                    </div>
+                    <input type="range" id="zoom_slider" min="1" max="100" step="1" value="10">
+                    <div id="zoom_value" class="title_value"><span>Valor: 10 ms</span></div>
+                </div>
+                <div id="oscilogram" class="cursor2d" ></div>
+                <div id="intensity" class="cursor2d"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Java Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init();</script>
+
+</body>
+</html>

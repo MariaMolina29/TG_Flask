@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analizar Audio en Tiempo Real</title>
+    <!-- Web Socket JavaScript -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <!-- Plotly JavaScript -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Sweet Alert JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- JavaScript -->
+    <script src="../static/javascripts/real_time_analysis.js"></script>
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+<body>
+    <div class="live-title">
+        <h1 class="title" data-aos="zoom-in">Analizar audio en tiempo real</h1>
+    </div>
+    <div class="back-section">
+        <a href="index.html">
+            <i class="fa-solid fa-arrow-left"></i> Regresar
+        </a>
+    </div>
+    <div class="rep-buttons">
+        <button id="start_recording"> <i class="fa-solid fa-play"></i> Iniciar Grabación</button>
+        <button id="stop_recording"><i class="fa-solid fa-stop"></i> Detener Grabación</button>
+        <button id="save_and_load_button"><i class="fa-solid fa-chart-line"></i>Guardar y Cargar</button>   
+    </div>
+    <div id="oscilogram"></div>
+    <label for="formats_checkbox">Formantes</label>
+    <input type="checkbox" id="formats_checkbox" checked>
+    <div id="spectrogram"></div>
+    <div id="intensity"></div>
+
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init();</script>
+
+</body>
+</html>
