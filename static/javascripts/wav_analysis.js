@@ -1,6 +1,25 @@
 let socket
+let custom_locale = {
+    dictionary: {
+        'Zoom': 'Acercar',
+        'Pan': 'Desplazar',
+        'Autoscale': 'Restablecer',
+        'Toggle Spike Lines': 'Guías de Eje',
+        'Turntable rotation': 'Rotación',
+        'Reset camera to last save': 'Restablecer cámara',
+        'Download plot as a png': 'Descargar gráfico como PNG',
+        'Produced with Plotly': 'Producido con Plotly'
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // socket = io();
+    // socket.on('connect', () => {
+    //     console.log("Conectado al servidor Flask-SocketIO");
+    // });
+    // socket.on("disconnect",  () =>{
+    //     console.log("Desconectado del servidor Flask-SocketIO");
+    // });
     main()
 });
 
@@ -15,7 +34,7 @@ function main() {
                 </div>
                 <div class="container_buttons">  
                     <div class="back-section">
-                        <a href="index.html" class="custom-link">
+                        <a href="index.html" class="back_button_a_alert ">
                             <i class="fa-solid fa-arrow-left"></i> Regresar
                         </a>
                     </div>
@@ -23,29 +42,45 @@ function main() {
                         <button id="load_wav" class="custom-button">Cargar<i class="fa-solid fa-chart-line"></i></button>
                     </div>
                 </div>
+                <div >
+            </div>
             </div>
         `,
         showConfirmButton: false,  // Puedes ocultar el botón de confirmación para manejarlo manualmente
-        // allowOutsideClick: false,
-        allowOutsideClick: true,
+        allowOutsideClick: false,
         iconHtml: '<i class="fa-solid fa-upload fa-beat"></i>',  // Ícono de subida de archivo con rebote
         customClass: {
-            popup: '.custom_swal_popup',
+            icon: 'custom-icon'
         },
+        footer: `
+            <div >
+                <button  id="tutorial_alert" class="custom-button tutorial">
+                    Ayuda<i class="fa-solid fa-question-circle"></i> 
+                </button>
+            </div>
+        `,
         didOpen: () => {
+            document.getElementById('tutorial_alert').addEventListener('click', () => tutorial_alert())
+            document.getElementById('tutorial_wav').addEventListener('click', () => tutorial_wav())
+            
+
             // socket.emit('get_processed_audio');
             // socket.on('loading', () => {
-            //     sweet_alert("Datos guardados correctamente", `los datos se han  subido correctamente espere para el procesamiento.`, "success", "", undefined, false, true, null);
+            //     sweet_alert("Datos guardados correctamente", `Los datos se han  subido correctamente. Espere para el procesamiento.`, "success", "", undefined, false, true, null);
             // });
 
+            document.getElementById("load_wav").addEventListener("click", function (event) {
+                Swal.close();
+            });
+
             // let upload_wav = document.getElementById('upload_wav');
-            // let load_wav_button = document.getElementById('load_wav');
             // let formats_checkbox = document.getElementById('formats_checkbox');
             // let audio_player = document.getElementById('audio_player');
             // let download_txt = document.getElementById('download_txt');
             // let download_wav = document.getElementById('download_wav');
+
             fetch('static/javascripts/data.json')
-            
+
                 .then(response => response.json())
                 .then(data => {
                     // Aquí es donde asignas los datos a variables
@@ -60,22 +95,25 @@ function main() {
                     const trace_spectrum = data.trace_spectrum;
                     const layout_spectrum = data.layout_spectrum;
 
-                    Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, { responsive: true })
-                    Plotly.newPlot('spectrogram', trace_spectrogram, layout_spectrogram, { responsive: true });
-                    Plotly.newPlot('intensity', trace_intensity, layout_intensity, { responsive: true });
-                    Plotly.newPlot('spectrogram_3d', trace_spectrogram_3d, layout_spectrogram_3d, { responsive: true });
-                    Plotly.newPlot('spectrum', trace_spectrum, layout_spectrum, { responsive: true });
+                    Plotly.newPlot('spectrogram', trace_spectrogram, layout_spectrogram, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('spectrum', trace_spectrum, layout_spectrum, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('spectrogram_3d', trace_spectrogram_3d, layout_spectrogram_3d, { responsive: true, displayModeBar: true, modeBarButtonsToRemove: ['pan3d', 'orbitRotation', 'resetCameraDefault3d', 'hoverClosest3d'], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('intensity', trace_intensity, layout_intensity, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+
                 })
                 .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
-            // Plotly.newPlot('spectrogram', [], { title: "Esperando Datos..." }, { responsive: true })
-            // Plotly.newPlot('spectrum', [], { title: "Esperando Datos..." }, { responsive: true });
-            // Plotly.newPlot('spectrogram_3d', [], { title: "Esperando Datos..." }, { responsive: true });
-            // Plotly.newPlot('oscilogram', [], { title: "Esperando Datos..." }, { responsive: true });
-            // Plotly.newPlot('intensity', [], { title: "Esperando Datos..." }, { responsive: true });
+            // Plotly.newPlot('spectrogram', [], { title: "Esperando Datos...", dragmode: false }, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+            // Plotly.newPlot('spectrum', [], { title: "Esperando Datos...", dragmode: false }, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+            // Plotly.newPlot('spectrogram_3d', [], { title: "Esperando Datos...", dragmode: false }, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtonsToRemove: ['pan3d', 'orbitRotation', 'resetCameraDefault3d', 'hoverClosest3d'], locale: 'custom', locales: { custom: custom_locale } });
+            // Plotly.newPlot('oscilogram', [], { title: "Esperando Datos...", dragmode: false }, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+            // Plotly.newPlot('intensity', [], { title: "Esperando Datos...", dragmode: false }, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
 
-            // load_wav_button.addEventListener('click', () => load_wav(upload_wav))
+            // document.getElementById('load_wav').addEventListener('click', () => load_wav(upload_wav))
             // upload_wav.addEventListener('change', () => change_upload(upload_wav))
+
+
 
             // socket.on("plot_data_wav", (plot_data) => {
             //     let parsed_data = JSON.parse(plot_data);
@@ -84,7 +122,7 @@ function main() {
             //     Swal.close();
             //     cursor(audio_player)
             //     syncLineOnClick(parsed_data.spectrogram_data)
-            //     in_out_formants()
+            //     in_out_formants(formats_checkbox)
             // });
             // socket.on('plot_save_audio', (data) => {
             //     let parsed_data = JSON.parse(data.plot_data);
@@ -93,53 +131,66 @@ function main() {
             //     Swal.close();
             //     cursor(audio_player)
             //     syncLineOnClick(parsed_data.spectrogram_data)
-            //     in_out_formants()
+            //     in_out_formants(formats_checkbox)
             // });
         }
     });
 
 }
+function load_wav(upload_wav) {
+    show_spinner()
+    setTimeout(() => {
+        if (upload_wav.files.length === 0) {
+            sweet_alert("Archivo no subido", "Debe subir un archivo .wav antes de continuar.", "error", "OK", undefined, true, false, main);
+            hide_spinner()
+            return;  // Salir de la función si no hay archivo
+        }
+        // Obtener el archivo subido
+        let file = upload_wav.files[0];
+
+        // Verificar si el archivo es un archivo .wav 
+        if (file.type !== "audio/wav") {
+            sweet_alert("Formato incorrecto", "Por favor, seleccione un archivo .wav válido.", "error", "OK", undefined, true, false, main);
+            hide_spinner()
+            return;
+        }
+
+
+        // Leer el archivo como ArrayBuffer (lo más eficiente para enviar datos binarios)
+        let reader = new FileReader();
+        reader.onload = function (event) {
+            let array_buffer = event.target.result;  // Obtener el contenido del archivo como ArrayBuffer
+            let wavBlob = new Blob([array_buffer], { type: 'audio/wav' });
+            let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            audioContext.decodeAudioData(array_buffer, function (buffer) {
+                let duration = buffer.duration;
+                console.log(duration)
+                if (duration > 120) {
+                    sweet_alert("Audio demasiado largo", `El archivo "${file.name}" supera los 2 minutos de duración. Por favor, suba un archivo más corto.`, "warning", "OK", undefined, true, false, main);
+                } else {
+                    // Enviar el archivo al servidor usando Socket.IO
+                    socket.emit('process_wav', wavBlob);
+                    sweet_alert("Archivo enviado", `El archivo "${file.name}" ha sido subido correctamente. Espere para el procesamiento.`, "success", "", undefined, false, true, null);
+                }
+            })
+        };
+
+        // Leer el archivo como ArrayBuffer
+        reader.readAsArrayBuffer(file);
+        hide_spinner()
+    }, 100)
+}
 function change_upload(upload_wav) {
     let fileArea = document.getElementById('fileArea');
-    let fileName = upload_wav.files[0] ? upload_wav.files[0].name : 'Haz clic para seleccionar un archivo';
+    let fileName = upload_wav.files[0] ? upload_wav.files[0].name : 'Haga clic aquí para seleccionar un archivo';
 
     fileArea.setAttribute('data-file-name', fileName);
 
-    if (fileName !== 'Haz clic para seleccionar un archivo') {
+    if (fileName !== 'Haga clic aquí para seleccionar un archivo') {
         fileArea.classList.add('has-file');
     } else {
         fileArea.classList.remove('has-file');
     }
-}
-function load_wav(upload_wav) {
-    // Verificar si se seleccionó un archivo
-    if (upload_wav.files.length === 0) {
-        sweet_alert("Archivo no subido", "Debe subir un archivo .wav antes de continuar.", "error", "OK", undefined, true, false, main);
-        return;  // Salir de la función si no hay archivo
-    }
-    // Obtener el archivo subido
-    let file = upload_wav.files[0];
-
-    // Verificar si el archivo es un archivo .wav 
-    if (file.type !== "audio/wav") {
-        sweet_alert("Formato incorrecto", "Por favor, seleccione un archivo .wav válido.", "error", "OK", undefined, true, false, main);
-        return;
-    }
-
-
-    // Leer el archivo como ArrayBuffer (lo más eficiente para enviar datos binarios)
-    let reader = new FileReader();
-    reader.onload = function (event) {
-        let arrayBuffer = event.target.result;  // Obtener el contenido del archivo como ArrayBuffer
-
-        // Enviar el archivo al servidor usando Socket.IO
-        socket.emit('process_wav', arrayBuffer);
-
-        sweet_alert("Archivo enviado", `El archivo "${file.name}" ha sido subido correctamente espere para el procesamiento.`, "success", "", undefined, false, true, null);
-    };
-
-    // Leer el archivo como ArrayBuffer
-    reader.readAsArrayBuffer(file);
 }
 function update_graphs(parsed_data, formats_checkbox) {
     // Actualizar el oscilograma y la intensidad
@@ -149,35 +200,60 @@ function update_graphs(parsed_data, formats_checkbox) {
     Plotly.react('intensity', parsed_data.trace_intensity, parsed_data.layout_intensity);
     // Filtrar los formantes si el checkbox no está marcado
     if (!formats_checkbox.checked) {
-        parsed_data.trace_spectrogram = parsed_data.trace_spectrogram.filter(trace => !trace.name.startsWith('Formant'));
+        parsed_data.trace_spectrogram = parsed_data.trace_spectrogram.filter(trace => !trace.name.startsWith('Formante'));
     }
     // Actualizar el espectrograma
     Plotly.react('spectrogram', parsed_data.trace_spectrogram, parsed_data.layout_spectrogram)
 }
 function update_elements(parsed_data, upload_wav, audio_player, download_wav, download_txt, audio) {
-    document.getElementById('download_pdf').addEventListener('click', function () {
-        const { jsPDF } = window.jspdf;
-        let doc = new jsPDF('landscape');
+    document.getElementById('download_pdf').addEventListener('click', function (event) {
+        event.preventDefault();  // Evitar la recarga de la página
+        show_spinner();
+        setTimeout(async () => {
+            try {
+                let { jsPDF } = window.jspdf;
+                let doc = new jsPDF('landscape');
+                let plots = document.querySelectorAll('.js-plotly-plot');  // Todas las gráficas de Plotly en la página
 
-        let plots = document.querySelectorAll('.js-plotly-plot');  // Todas las gráficas de Plotly en la página
-        let promises = [];
+                // Evitar el caso en el que no haya gráficas disponibles
+                if (plots.length === 0) {
+                    console.error("No se encontraron gráficas para exportar.");
+                    return;
+                }
 
-        // Capturamos cada gráfica como una imagen en base64
-        plots.forEach((plot, index) => {
-            promises.push(Plotly.toImage(plot, { format: 'png', height: 400, width: 600 })
-                .then(function (dataUrl) {
-                    if (index > 0) {
-                        doc.addPage();  // Agregar una nueva página para cada gráfica, excepto la primera
+                // Procesar cada gráfica de forma secuencial
+                for (let i = 0; i < plots.length; i++) {
+                    try {
+                        // Usar Plotly.toImage para generar la imagen de la gráfica en alta calidad
+                        let dataUrl = await Plotly.toImage(plots[i], { format: 'png', width: 1200, height: 800, scale: 2 });
+
+                        // Añadir la imagen al PDF manteniendo la proporción
+                        let pdfWidth = doc.internal.pageSize.getWidth() - 20;  // Un margen de 10px a la izquierda y derecha
+                        let pdfHeight = (800 / 1200) * pdfWidth;  // Mantener la proporción original (4:3)
+
+                        doc.addImage(dataUrl, 'PNG', 10, 10, pdfWidth, pdfHeight);  // Ajustar dimensiones al PDF
+
+                        // Agregar una nueva página si no es la última gráfica
+                        if (i < plots.length - 1) {
+                            doc.addPage();
+                        }
+                    } catch (error) {
+                        console.error(`Error al convertir la gráfica ${i + 1} en imagen:`, error);
                     }
-                    doc.addImage(dataUrl, 'PNG', 10, 10, 270, 150);  // Insertar la imagen en el PDF (ajustar dimensiones según sea necesario)
-                }));
-        });
+                }
 
-        // Cuando todas las imágenes están listas, generamos el PDF
-        Promise.all(promises).then(() => {
-            doc.save('figures.pdf');
-        });
+                // Guardar el PDF después de que todas las gráficas se procesen
+                doc.save('figures.pdf');
+            } catch (error) {
+                console.error("Error general en la generación del PDF:", error);
+            } finally {
+                hide_spinner();  // Asegurar que el spinner se oculte al final
+            }
+        }, 100);  // Mantener un pequeño retraso para permitir que el spinner se muestre primero
     });
+
+
+
 
     let file = upload_wav.files[0];
     if (file) {
@@ -206,21 +282,16 @@ function update_elements(parsed_data, upload_wav, audio_player, download_wav, do
     // Actualizar el href del enlace de descarga
     download_txt.href = text_url;
 }
-function in_out_formants() {
+function in_out_formants(formats_checkbox) {
     let spectrogram = document.getElementById('spectrogram');
     formats_checkbox.addEventListener('change', function (event) {
         show_spinner()
         setTimeout(() => {
-            formats_checkbox.disabled = true;
-
             spectrogram.data.forEach((trace, index) => {
-                if (trace.name && trace.name.includes('Formant')) {
+                if (trace.name && trace.name.includes('Formante')) {
                     Plotly.restyle(spectrogram, { visible: formats_checkbox.checked ? true : false }, [index]);
                 }
             });
-
-            formats_checkbox.disabled = false;
-
             hide_spinner()
         }, 100);
     })
@@ -264,7 +335,7 @@ function syncLineOnClick(spectrogram_data) {
     let clicked_time = 0
 
     zoom_slider.addEventListener("input", function () {
-        zoom_value.textContent = zoom_slider.value;
+        zoom_value.textContent = `Valor: ${zoom_slider.value} ms`;
     });
     zoom_slider.addEventListener("change", function () {
         show_spinner()
@@ -415,7 +486,7 @@ function addZoomWindow(oscilogramFigure, clicked_time, zoomWindowDuration, click
     }
 
     // Eliminar cualquier traza de zoom anterior (esto evitará la superposición)
-    let zoomTraceIndex = oscilogramFigure.data.findIndex(trace => trace.name === "Zoomed Waveform");
+    let zoomTraceIndex = oscilogramFigure.data.findIndex(trace => trace.name === "Oscilograma Ampliado");
     let rectTraceIndex = oscilogramFigure.data.findIndex(trace => trace.name === "Zoom Area Background");
 
     if (zoomTraceIndex !== -1) {
@@ -440,7 +511,8 @@ function addZoomWindow(oscilogramFigure, clicked_time, zoomWindowDuration, click
         xaxis: 'x2',  // Usar el segundo eje X
         yaxis: 'y2',  // Usar el segundo eje Y
         mode: 'lines',  // Modo de líneas para los bordes del rectángulo
-        showlegend: false
+        showlegend: false,
+        hoverinfo: 'skip'
     };
 
 
@@ -450,9 +522,10 @@ function addZoomWindow(oscilogramFigure, clicked_time, zoomWindowDuration, click
         y: zoomY,
         mode: 'lines',
         line: { color: 'red' },
-        name: "Zoomed Waveform",  // Nombre para identificar la traza de zoom
+        name: "Oscilograma Ampliado",  // Nombre para identificar la traza de zoom
         xaxis: 'x2',  // Usar un segundo eje x
         yaxis: 'y2',  // Usar un segundo eje y
+        hovertemplate: 'Tiempo: %{x: .3f} s<br>Amplitud: %{y: .3f}'
 
     };
 
@@ -504,12 +577,12 @@ function addZoomWindow(oscilogramFigure, clicked_time, zoomWindowDuration, click
             }
 
         },
-        margin: {
-            l: 50,
-            r: 50,
-            t: 50,  // Reducir el margen superior para acercar el título al eje X
-            b: 50,
-        }
+        // margin: {
+        //     l: 50,
+        //     r: 50,
+        //     t: 50,  // Reducir el margen superior para acercar el título al eje X
+        //     b: 50,
+        // }
     }
 
     // Agregar el nuevo zoom al gráfico
@@ -552,4 +625,47 @@ function hide_spinner() {
     document.getElementById('spinner_container').classList.remove('visible');  // Ocultar el spinner
     document.getElementById('spinner').classList.remove('spin_active');  // Detener la animación del spinner
     document.getElementById('main_content').classList.remove('blur');  // Remover el desenfoque
+}
+function start_tour(steps) {
+    // Crear una instancia de Driver
+    let driver = window.driver.js.driver;
+
+    const driverObj = driver({
+        showProgress: true,
+        animate: true, // Animaciones para el tour
+        opacity: 0.6,  // Opacidad de fondo
+        allowClose: true, // Permitir cerrar la guía
+        doneBtnText: 'Finalizar', // Texto para el botón de finalización
+        closeBtnText: 'Cerrar', // Texto para el botón de cierre
+        nextBtnText: 'Siguiente', // Texto para el botón de siguiente
+        prevBtnText: 'Anterior', // Texto para el botón de anterior
+        steps: steps
+    });
+    // Iniciar el tour
+    driverObj.drive();
+}
+function tutorial_alert() {
+    let steps = [
+        { element: '#upload_wav', popover: { title: 'Subir Archivo', description: 'Haga clic aquí para seleccionar un archivo .wav para subir.', side: 'left', align: 'center' } },
+        { element: '#load_wav', popover: { title: 'Guardar y Cargar', description: 'Haga clic aquí para guardar y cargar el archivo seleccionado.', side: 'bottom', align: 'center' } },
+        { element: '.back_button_a_alert', popover: { title: 'Regresar', description: 'Haga clic aquí para volver a la página inicial sin guardar cambios.', side: 'bottom', align: 'center' } }
+    ]
+    start_tour(steps)
+}
+
+function tutorial_wav() {
+    let steps = [
+        
+        { element: '#audio_player', popover: { title: 'Reproducir Audio', description: 'Haga clic aquí para reproducir el archivo de audio cargado.', side: 'bottom', align: 'center' } },
+        { element: '#download_txt', popover: { title: 'Descargar Texto', description: 'Haga clic aquí para descargar el contenido en formato de texto.', side: 'bottom', align: 'center' } },
+        { element: '#download_wav', popover: { title: 'Descargar WAV', description: 'Haga clic aquí para descargar el archivo de audio en formato .wav.', side: 'bottom', align: 'center' } },
+        { element: '#download_pdf', popover: { title: 'Descargar PDF', description: 'Haga clic aquí para descargar las gráficas en formato PDF.', side: 'bottom', align: 'center' } },
+        { element: '#formats_checkbox', popover: { title: 'Mostrar Formantes', description: 'Seleccione esta opción para mostrar los formantes en la gráfica.', side: 'bottom', align: 'center' } },
+        { element: '.modebar-group', popover: { title: 'Controles de Gráfica', description: 'Utilice estos controles para ajustar la visualización de la gráfica. \nPara conocer más de las funcionalidades, consulte el Manual', side: 'left', align: 'center' } },
+        { element: '.slider-container', popover: { title: 'Ajustar Zoom', description: 'Utilice la barra de escala para ajustar el nivel de zoom en la gráfica.', side: 'bottom', align: 'center' } },
+        { element: '.back_button_a', popover: { title: 'Regresar', description: 'Haga clic aquípara volver a la página inicial sin guardar cambios.', side: 'bottom', align: 'center' } },
+        { element: '#manual', popover: { title: 'Manual de Usuario', description: 'Para más información, consulte el Manual de Usuario', side: 'top', align: 'center' } },
+
+    ];
+    start_tour(steps)
 }
