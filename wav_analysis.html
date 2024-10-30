@@ -97,18 +97,18 @@
             <div id="second_column">
                 <div class="slider-container">
                     <div class="title_value"><label for="zoom_slider" >Duración de la ventana de zoom (ms)</label></div>
+                    <input type="range" id="zoom_slider" min="1" max="100" step="1" value="10">
                     <div class="range-marks">
                         <span>1 </span>
-                        <span>50 </span>
+                        <div id="zoom_value" class="title_value"><span>Valor: 10 ms</span></div>
                         <span>100 </span>
                     </div>
-                    <input type="range" id="zoom_slider" min="1" max="100" step="1" value="10">
-                    <div id="zoom_value" class="title_value"><span>Valor: 10 ms</span></div>
                 </div>
                 <div id="oscilogram" class="cursor2d" ></div>
                 <div id="intensity" class="cursor2d"></div>
             </div>
         </div>
+        <!-- Footer -->
         <footer>
             <div class="footer">
                 <div class="container">
