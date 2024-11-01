@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             let trace_intensity = data.trace_intensity;
             let layout_intensity = data.layout_intensity;
 
-            Plotly.newPlot('spectrogram', trace_spectrogram, layout_spectrogram, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
-            Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
-            Plotly.newPlot('intensity', trace_intensity, layout_intensity, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+            Plotly.newPlot('spectrogram', trace_spectrogram, layout_spectrogram, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+            Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+            Plotly.newPlot('intensity', trace_intensity, layout_intensity, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
 
         })
         .catch(error => console.error('Error al cargar el archivo JSON:', error));

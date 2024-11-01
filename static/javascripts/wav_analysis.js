@@ -76,11 +76,11 @@ function main() {
                     let trace_spectrum = data.trace_spectrum;
                     let layout_spectrum = data.layout_spectrum;
 
-                    Plotly.newPlot('spectrogram', trace_spectrogram, layout_spectrogram, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
-                    Plotly.newPlot('spectrum', trace_spectrum, layout_spectrum, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
-                    Plotly.newPlot('spectrogram_3d', trace_spectrogram_3d, layout_spectrogram_3d, { responsive: true, displayModeBar: true, modeBarButtonsToRemove: ['pan3d', 'orbitRotation', 'resetCameraDefault3d', 'hoverClosest3d'], locale: 'custom', locales: { custom: custom_locale } });
-                    Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
-                    Plotly.newPlot('intensity', trace_intensity, layout_intensity, { responsive: true, displayModeBar: true, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('spectrogram', trace_spectrogram, layout_spectrogram, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('spectrum', trace_spectrum, layout_spectrum, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('spectrogram_3d', trace_spectrogram_3d, layout_spectrogram_3d, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtonsToRemove: ['pan3d', 'orbitRotation', 'resetCameraDefault3d', 'hoverClosest3d'], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('oscilogram', trace_oscilogram, layout_oscilogram, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
+                    Plotly.newPlot('intensity', trace_intensity, layout_intensity, { responsive: true, displayModeBar: true, doubleClick: false, showTips: false, modeBarButtons: [['zoom2d', 'pan2d', 'autoScale2d', 'toImage', 'toggleSpikelines']], locale: 'custom', locales: { custom: custom_locale } });
 
                 })
                 .catch(error => console.error('Error al cargar el archivo JSON:', error));
