@@ -84,24 +84,19 @@
     
     <!-- JavaScript -->
     <script>
-        // URL del PDF
-        let pdfURL = "static/manual_usuario.pdf";
-
-        // Configuración de opciones para PDFObject
-        let options = {
-            pdfOpenParams: {
-                view: 'Fit',          // Ajustar el PDF al tamaño de la pantalla
-                toolbar: '1',         // Mostrar la barra de herramientas
-                navpanes: '1',        // Mostrar el panel de navegación
-                scrollbar: '1',       // Permitir la barra de desplazamiento
-                statusbar: '1',       // Mostrar barra de estado
-                messages: '1',        // Mostrar mensajes de error en caso de problemas
-                zoom: '100'           // Nivel de zoom inicial
+        document.addEventListener("DOMContentLoaded", function () {
+            const pdfURL = "../static/manual_usuario.pdf";
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+            if (isIOS) {
+                // Si es un dispositivo iOS, abre el PDF en una nueva pestaña
+                window.open(pdfURL, '_blank');
+            } else {
+                // Si no es iOS, muestra el PDF en el contenedor
+                PDFObject.embed(pdfURL, "#pdf-viewer");
             }
-        };
-
-        // Embebe el PDF en el contenedor
-        PDFObject.embed(pdfURL, "#pdf-viewer", options);
+        });
     </script>
+    
 </body>
 </html>
