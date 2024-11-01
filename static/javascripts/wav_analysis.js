@@ -41,6 +41,7 @@ function main() {
         `,
         showConfirmButton: false,  // Puedes ocultar el botón de confirmación para manejarlo manualmente
         allowOutsideClick: false,
+        timer: 3000,
         iconHtml: '<i class="fa-solid fa-upload fa-beat"></i>',  // Ícono de subida de archivo con rebote
         customClass: {
             icon: 'custom-icon'
