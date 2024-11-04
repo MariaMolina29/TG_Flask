@@ -376,7 +376,9 @@ header .offcanvas-body .nav-link .top-animation {
     border-radius: 5px;
     text-decoration: none;
     margin-bottom:20px;
-
+}
+.back-section p{
+    color: var(--dark-color);
 }
 
 /* Estilo para los íconos */
