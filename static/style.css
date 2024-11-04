@@ -377,8 +377,13 @@ header .offcanvas-body .nav-link .top-animation {
     text-decoration: none;
     margin-bottom:20px;
 }
+.lim{
+    display: flex;
+    align-items: center;
+}
 .lim p{
     color: var(--dark-color);
+    
 }
 
 /* Estilo para los íconos */
