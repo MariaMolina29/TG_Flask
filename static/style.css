@@ -40,7 +40,7 @@ header {
 header .container-fluid .brand-title {
     color: var(--text-color);
     text-decoration: none;
-    font-size: clamp(15px, 2vw, 20px);
+    font-size: 20px;
 }
 
 header .navbar-toggler {
@@ -123,7 +123,7 @@ header .offcanvas-body .nav-link .top-animation {
 }
 
 .brand-title {
-    font-size: clamp(20px, 3vw, 30px);
+    font-size: 36px;
     color: var(--primary-color);
     font-weight: 700;
     text-transform: uppercase;
@@ -132,7 +132,7 @@ header .offcanvas-body .nav-link .top-animation {
 }
 
 .link_about{
-    font-size: clamp(15px, 1vw, 20px);
+    font-size: 22px;
     color: var(--secondary-color);
     text-decoration: none;
     transition: color 0.3s;
@@ -154,7 +154,7 @@ header .offcanvas-body .nav-link .top-animation {
 }
 
 .hero-title {
-    font-size: clamp(30px, 9vw, 100px);
+    font-size: 70px;
     font-weight: 700;
     margin-bottom: 20px;
     color: var(--text-color);
@@ -163,7 +163,7 @@ header .offcanvas-body .nav-link .top-animation {
 }
 
 .hero-subtitle {
-    font-size: clamp(20px, 3vw, 30px);;
+    font-size: 24px;
     font-weight: 300;
     margin-bottom: 40px;
     color: var(--muted-text-color);
@@ -171,13 +171,13 @@ header .offcanvas-body .nav-link .top-animation {
 
 /* Sección de información */
 .info-section {
-    padding: 70px 20px;
+    padding: 110px 20px;
     background-color: var(--light-color);
     text-align: center;
 }
 
 .section-title {
-    font-size: clamp(20px, 3vw, 30px);
+    font-size: 36px;
     color: var(--secondary-color);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -185,7 +185,7 @@ header .offcanvas-body .nav-link .top-animation {
 }
 
 .section-description {
-    font-size: clamp(15px, 1vw, 20px);
+    font-size: 18px;
     color: var(--dark-color);
     max-width: 800px;
     margin: 0 auto;
@@ -227,7 +227,7 @@ header .offcanvas-body .nav-link .top-animation {
 }
 
 .audio-section h1 {
-    font-size: clamp(20px, 3vw, 30px);
+    font-size: 36px;
     margin-bottom: 40px;
     color: var(--primary-color);
     text-transform: uppercase;
@@ -243,7 +243,7 @@ header .offcanvas-body .nav-link .top-animation {
 
 .audio-section .button {
     padding: 15px 30px;
-    font-size: clamp(13px, 1vw, 20px);
+    font-size: 18px;
     font-weight: 600;
     background-color: gray;
     color: var(--light-color);
@@ -295,7 +295,7 @@ header .offcanvas-body .nav-link .top-animation {
     background-color: var(--primary-color);
     /* Fondo del botón */
     font-family: 'Helvetica Neue';
-    font-size: clamp(13px, 1vw, 20px);
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border-radius: 5px;
@@ -314,13 +314,24 @@ header .offcanvas-body .nav-link .top-animation {
 
 /*Edición del pie de página*/
 
+.footer-link {
+    font-size: 16px;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: var(--muted-text-color);
+}
+
 /* Footer */
 .footer {
     background-color: var(--secondary-color);
     color: #fff;
     padding: 30px 20px;
     text-align: center;
-    font-size: clamp(12px, 1vw, 20px);
+
+
 
 }
 
@@ -340,7 +351,7 @@ header .offcanvas-body .nav-link .top-animation {
 
 .footer a {
     border-radius: 5px;
-    font-size: clamp(13px, 1vw, 20px);
+    font-size: 16px;
     color: #fff;
     text-decoration: none;
     font-weight: 400;
@@ -350,6 +361,20 @@ header .offcanvas-body .nav-link .top-animation {
 .footer a:hover {
     color: var(--third-color)
 }
+
+/* Estilo responsivo */
+/* @media screen and (max-width: 768px) {
+    .audio-section .buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .audio-section .button {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+} */
 
 /* "Botón" de REGRESAR */
 
@@ -370,28 +395,30 @@ header .offcanvas-body .nav-link .top-animation {
     background-color: var(--third-color);
     /* Fondo del botón */
     font-family: 'Helvetica Neue';
-    font-size: clamp(13px, 1vw, 20px);
+    font-size: 17px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border-radius: 5px;
     text-decoration: none;
     margin-bottom:20px;
+
 }
-.lim{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.lim p{
-    color: var(--dark-color);
-    
+@media screen and (max-width: 392px) {
+    .back-section {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
 }
 
 /* Estilo para los íconos */
 i {
     margin-right: 10px;
     /* Espacio entre el ícono y el texto */
-    font-size: clamp(15px, 1vw, 20px);
+    font-size: 20px;
     /* Ajusta el tamaño del ícono */
     color: var(--light-color);
     /* Color del ícono */
@@ -410,7 +437,7 @@ label {
     color: var(--primary-color);
     padding: 10px;
     font-family: 'Helvetica Neue';
-    font-size: clamp(13px, 2vw, 17px);
+    margin-left: 20px;
 }
 
 
@@ -427,8 +454,6 @@ label {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.3em;
-    font-size: clamp(20px, 3vw, 30px);
-
 }
 
 
@@ -451,7 +476,7 @@ label {
 
 /* Estilos generales para los botones */
 .rep-buttons button {
-    font-size: clamp(13px, 1vw, 20px);
+    font-size: 20px;
     padding: 10px 20px;
     border-radius: 5px;
     border: none;
@@ -497,11 +522,8 @@ button:hover {
 
 /*   ESTILOS PARA WAV ANALYSIS    */
 
-#container_formats_checkbox {
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+#formats_checkbox {
+    margin-top: 66px;
 }
 
 /* Seccion de descargar archivos en .wav */
@@ -510,7 +532,7 @@ button:hover {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-left: 20px;
     gap: 20px;
 }
 
@@ -522,7 +544,8 @@ button:hover {
     background-color: var(--third-color);
     /* Fondo del botón */
     font-family: 'Helvetica Neue';
-    font-size: clamp(13px, 1vw, 20px);
+    font-size: 18px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border-radius: 5px;
@@ -579,8 +602,7 @@ input[type="range"]:hover {
 }
 
 .range-marks span {
-    font-size: clamp(13px, 1vw, 17px);
-    font-family: 'Helvetica Neue';
+    font-size: 12px;
 }
 
 .slider-container {
@@ -588,13 +610,13 @@ input[type="range"]:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Para que el slider no quede centrado */
     text-align: center;
-    height: 100px;
 }
 
 .title_value {
     width: 300px;
-    font-size: clamp(15px, 1vw, 20px);
+    font-size: 14px;
 }
 
 
@@ -614,12 +636,13 @@ input[type="range"]:hover {
     cursor: pointer;
     color: var(--light-color);
     /* Color del texto */
-    padding: 10px 30px;
+    padding: 10px 32px;
     /* Ajuste del padding del botón */
     background-color: var(--third-color);
     /* Fondo del botón */
     font-family: 'Helvetica Neue';
-    font-size: clamp(13px, 1vw, 20px);
+    font-size: 17px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border-radius: 5px;
@@ -628,7 +651,7 @@ input[type="range"]:hover {
 
 .custom-button i {
     margin-right: 0;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 /* Efecto hover del botón */
@@ -706,7 +729,7 @@ input[type="file"]::file-selector-button {
 .custom-file-area::after {
     font-family: 'Helvetica Neue';
     content: 'Haga clic aquí para seleccionar un archivo';
-    font-size: clamp(20px, 3vw, 25px);
+    font-size: 25px;
     color: var(--secondary-color);
     pointer-events: none;
     text-align: center;
@@ -725,17 +748,21 @@ input[type="file"]::file-selector-button {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
+    /* Fondo semitransparente más oscuro */
     display: flex;
+    flex-direction: column;
+    /* Alinear el texto debajo del spinner */
     justify-content: center;
     align-items: center;
     z-index: 9999;
     visibility: hidden;
+    /* Oculto por defecto */
     transition: visibility 0.3s, opacity 0.3s ease;
+    /* Transiciones suaves */
     opacity: 0;
-    flex-direction: column;
 }
 
 .spinner_overlay.visible {
@@ -774,28 +801,24 @@ input[type="file"]::file-selector-button {
     }
 }
 
-    /* Texto debajo del spinner */
-    .spinner_overlay p {
-        color: #fff;
-        font-size: 1.2rem;
-        font-family: 'Helvetica Neue';
-    }
+/* Texto debajo del spinner */
+.spinner_overlay p {
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: 'Arial', sans-serif;
+}
 
-    /* Efecto de desenfoque cuando el spinner está visible */
-    .blur {
-        filter: blur(5px);
-        pointer-events: none;
-        transition: filter 0.3s ease;
-    }
+/* Efecto de desenfoque cuando el spinner está visible */
+.blur {
+    filter: blur(5px);
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}
 
 #audio_player {
     width: 100%;
 }
 
-/* Seleccionar las herramientas de Plotly */
-.plotly .modebar-btn{
-    font-family: "Helvetica Neue";
-}
 
 /* Estilo para los íconos de la modebar de Plotly */
 .plotly .modebar-btn path {
@@ -815,22 +838,18 @@ input[type="file"]::file-selector-button {
 .iframe-wrapper {
     display: flex;
     justify-content: center;
+    /* Centrado horizontal */
     align-items: center;
+    /* Centrado vertical */
     height: 100vh;
-    padding: 1rem;
-    box-sizing: border-box;}
+    /* Altura del contenedor para ocupar toda la pantalla */
+}
 
 .pdf-container {
-    width: 90%;
-    max-width: 800px; /* Ancho máximo en pantallas grandes */
+    width: 70%;
     height: 90vh;
+    /* Ajustar para dejar un poco de espacio en la parte superior e inferior */
     border: none;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-.swal2-popup {
-    font-family: 'Helvetica Neue';
 }
 
 .swal2-confirm, .swal2-deny{
