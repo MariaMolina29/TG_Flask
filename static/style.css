@@ -471,7 +471,7 @@ label {
 }
 /* Botón "Iniciar Grabación" - Verde */
 #start_recording {
-    background-color: #4CAF50;
+    background-color: #3c8b3e;
     font-weight: 600;
     /* Verde */
 
@@ -479,7 +479,7 @@ label {
 
 /* Botón "Detener Grabación" - Rojo */
 #stop_recording {
-    background-color: #f44336;
+    background-color: #aa2e25;
     font-weight: 600;
     /* Rojo */
 }
